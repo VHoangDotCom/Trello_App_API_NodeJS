@@ -1,0 +1,31 @@
+{
+  "name": "trello-app-api",
+  "version": "1.0.0",
+  "description": "APIs for Trello App",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "eslint": "eslint src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VHoangDotCom/Trello_App_API_NodeJS.git"
+  },
+  "keywords": [],
+  "author": "Wizard JS",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VHoangDotCom/Trello_App_API_NodeJS/issues"
+  },
+  "homepage": "https://github.com/VHoangDotCom/Trello_App_API_NodeJS#readme",
+  "dependencies": {
+    "eslint-plugin-react": "^7.31.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.23.0",
+    "eslint-plugin-node": "^11.1.0"
+  }
+}

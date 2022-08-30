@@ -1,6 +1,6 @@
 import express from "express";
 
-import { mapOrder } from './utilities/sorts.js'
+import { mapOrder } from '*/utilities/sorts.js'
 
 const app = express()
 
@@ -12,5 +12,5 @@ app.get('/', (req, res) => {
 })
 
 app.listen(port, hostname, () => {
-   console.log()
+   console.log('Hi there')
 })

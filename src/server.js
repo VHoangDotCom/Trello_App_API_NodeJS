@@ -1,20 +1,25 @@
 import express from "express";
 
-import { connectDB } from "./config/mongodb";
+import { connectDB, getDB } from "./config/mongodb";
+import { env } from "./config/environtment";
+import { BoardModel } from '*/models/board.model.js'
 
-import { mapOrder } from '*/utilities/sorts.js'
 
-const app = express()
+connectDB().then(() => console.log('Connected successfully to database server !'))
+            .then(() => bootServer())
+            .catch(error => {
+                console.error(error)
+                process.exit(1)
+            })
 
-const hostname = 'localhost'
-const port = 8017
+const bootServer = () => {
+    const app = express()
 
-connectDB().catch(console.log)
+    app.get('/test', async (req, res) => {
+        res.end('<h1>Hello </h1> <hr/>')
+    })
 
-app.get('/', (req, res) => {
-    res.end('<h1>Hello </h1> <hr/>')
-})
-
-app.listen(port, hostname, () => {
-   console.log(`Hi there `)
-})
+    app.listen(env.APP_PORT, env.APP_HOST, () => {
+    console.log(`Hi there `)
+    })
+}

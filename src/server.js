@@ -2,7 +2,8 @@ import express from "express";
 
 import { connectDB, getDB } from "./config/mongodb";
 import { env } from "./config/environtment";
-import { apiV1 } from "*/routes/v1"
+import { apiV1 } from "./routes/v1"
+
 
 
 connectDB().then(() => console.log('Connected successfully to database server !'))

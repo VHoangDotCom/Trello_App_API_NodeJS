@@ -3,11 +3,9 @@ import { HttpStatusCode } from '*/utilities/constants'
 
 const createNew = async (req, res, next) => {
   const condition = Joi.object ({
+    boardId: Joi.string().required(),
+    columnId: Joi.string().required(),
     title: Joi.string().required().min(3).max(30).trim(),
-    // columnOrder: Joi.array().items(Joi.string()).default([]),
-    // craetedAt: Joi.date().timestamp().default(Date.now()),
-    // updatedAt: Joi.date().timestamp().default(null),
-    // _destroy: Joi.boolean().default(false)
   })
   try{
       await condition.validateAsync(req.body, { abortEarly: false })
@@ -19,4 +17,4 @@ const createNew = async (req, res, next) => {
   }
 }
 
-export const BoardValidation = { createNew }
+export const CardValidation = { createNew }

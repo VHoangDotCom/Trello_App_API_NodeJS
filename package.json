@@ -25,6 +25,7 @@
   "homepage": "https://github.com/VHoangDotCom/Trello_App_API_NodeJS#readme",
   "dependencies": {
     "@babel/runtime": "^7.18.9",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.2",
     "eslint-plugin-react": "^7.31.1",
     "eslint-plugin-react-hooks": "^4.6.0",

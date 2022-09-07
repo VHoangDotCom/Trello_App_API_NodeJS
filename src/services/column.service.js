@@ -4,12 +4,15 @@ import { CardModel } from "../models/card.model"
 
 const createNew = async (data) => {
   try{
-     const newColumn = await ColumnModel.createNew(data)
-     newColumn.cards = []
+     const createdColumn = await ColumnModel.createNew(data)
+     const getNewColumn = await ColumnModel.findOneById(createdColumn.insertedId.toString())
+     
+
+     getNewColumn.cards = []
 
      // update columnOrder in board collection
-      await BoardModel.pushColumnOrder(newColumn.boardId.toString(), newColumn._id.toString())
-     return newColumn
+      await BoardModel.pushColumnOrder(getNewColumn.boardId.toString(), getNewColumn._id.toString())
+     return getNewColumn
   }catch (error) {
     throw new Error(error)
   }

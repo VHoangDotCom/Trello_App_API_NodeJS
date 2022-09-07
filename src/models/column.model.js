@@ -1,4 +1,5 @@
 import Joi from "joi";
+import { after } from "lodash";
 import { ObjectId } from "mongodb";
 import { getDB } from "../config/mongodb";
 
@@ -17,6 +18,15 @@ const validateSchema = async (data) => {
     return await columnCollectionSchema.validateAsync(data, { abortEarly: false }) 
 }
 
+const findOneById = async (id) => {
+  try {
+    const result = await getDB().collection(columnCollectionName).findOne({ _id: ObjectId(id) })
+    return result
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
 const createNew = async (data) => {
   try {
       const validatedValue = await validateSchema(data)
@@ -25,7 +35,7 @@ const createNew = async (data) => {
         boardId: ObjectId(validatedValue.boardId)
       }
       const result = await getDB().collection(columnCollectionName).insertOne(insertValue)
-      return result.ops[0]
+      return result
   } catch (error) {
      throw new Error(error)
   }
@@ -42,7 +52,7 @@ const createNew = async (data) => {
     const result = await getDB().collection(columnCollectionName).findOneAndUpdate(
       { _id: ObjectId(columnId) },
       { $push: { cardOrder: cardId } },
-      { returnOriginal: false }
+      { returnDocument: 'after' }
     )
 
     return result.value
@@ -63,7 +73,7 @@ const update = async (id, data) => {
       const result = await getDB().collection(columnCollectionName).findOneAndUpdate(
         { _id: ObjectId(id) },
         { $set: updateData },
-        { returnOriginal: false }
+        { returnDocument: 'after' }
       )
       return result.value
   } catch (error) {
@@ -71,4 +81,10 @@ const update = async (id, data) => {
   }
 }
 
-export const ColumnModel = {columnCollectionName, createNew, update, pushCardOrder  }
+export const ColumnModel = {
+  columnCollectionName, 
+  createNew, 
+  update, 
+  pushCardOrder,
+  findOneById  
+}

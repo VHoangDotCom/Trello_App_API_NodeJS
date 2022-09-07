@@ -18,6 +18,15 @@ const validateSchema = async (data) => {
     return await cardCollectionSchema.validateAsync(data, { abortEarly: false }) 
 }
 
+const findOneById = async (id) => {
+  try {
+    const result = await getDB().collection(cardCollectionName).findOne({ _id: ObjectId(id) })
+    return result
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
 const createNew = async (data) => {
   try {
       const validatedValue = await validateSchema(data)
@@ -27,7 +36,7 @@ const createNew = async (data) => {
         columnId: ObjectId(validatedValue.columnId)
       }
       const result = await getDB().collection(cardCollectionName).insertOne(insertValue)
-      return result.ops[0]
+      return result
   } catch (error) {
     throw new Error(error)
   }
@@ -44,7 +53,7 @@ const update = async (id, data) => {
       const result = await getDB().collection(cardCollectionName).findOneAndUpdate(
         { _id: ObjectId(id) },
         { $set: updateData },
-        { returnOriginal: false }
+        { returnDocument: 'after' }
       )
 
       return result.value
@@ -67,4 +76,10 @@ const deleteMany = async (ids) => {
   }
 }
 
-export const CardModel = {cardCollectionName, createNew, deleteMany, update }
+export const CardModel = {
+  cardCollectionName, 
+  createNew, 
+  deleteMany, 
+  update,
+  findOneById
+}
